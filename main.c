@@ -1,9 +1,10 @@
 #include "mqtt.c"
+#include <stdio.h>
 
 int main() {
-    const char* broker = "localhost"; // Adresse du broker MQTT
-    int port = 1883;                  // Port par défaut de Mosquitto
-    printf("Démarrage du programme MQTT -> Morse...\n");
+    const char* broker = "localhost"; // mqtt broker
+    int port = 1883;                  // mosquitto default port
+    printf("Mqtt starting msg -> Morse...\n");
     mqtt_start(broker, port);
     return 0;
 }

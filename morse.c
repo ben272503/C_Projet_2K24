@@ -4,9 +4,9 @@
 
 typedef enum {
     MORSE_DOT,    // Point
-    MORSE_DASH,   // Trait
-    MORSE_WSEP,   // Séparateur entre lettres
-    MORSE_LSEP    // Séparateur entre mots
+    MORSE_DASH,   // line
+    MORSE_WSEP,   // letter separator
+    MORSE_LSEP    // word separator
 } morse_event_t;
 
 static const char* morse_dict[128] = {
@@ -27,7 +27,7 @@ void ascii_to_morse(const char* text, morse_callback_t callback) {
     for (size_t i = 0; i < len; i++) {
         unsigned char c = (unsigned char)toupper((unsigned char)text[i]);
         
-        // Si c'est un espace, on met un séparateur de mot
+        // if its a space, put a word separator
         if (c == ' ') {
             callback(MORSE_LSEP);
             continue;
@@ -35,7 +35,7 @@ void ascii_to_morse(const char* text, morse_callback_t callback) {
 
         const char* morse = morse_dict[c];
         if (morse) {
-            // Émettre le code Morse pour le caractère
+            // creating the morse code for the word
             for (size_t j = 0; j < strlen(morse); j++) {
                 if (morse[j] == '.') {
                     callback(MORSE_DOT);
