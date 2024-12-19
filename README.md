@@ -25,7 +25,7 @@ Presence of Makefile, Cmake
 ▶ response to errors (what we decided to parse and if we handle them)
 
 # Testing app:
-main.c, app_test fakeled.c is used to test the led and sleep program
+main.c, app_test_fakeled.c is used to test the led and sleep program
 test_morse is used to test the morse programm
 
 ![image](https://github.com/user-attachments/assets/6d3bd503-3208-4444-be5e-435179785071)
