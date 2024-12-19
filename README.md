@@ -24,6 +24,7 @@ Presence of Makefile, Cmake
 ▶ cleanliness
 ▶ response to errors (what we decided to parse and if we handle them)
 
-# tutorial to imput your message:
-send Mqtt message via this command:
-mosquitto_pub -h localhost -t "morse/messages" -m "CODE MORSE"
+# Testing app:
+main.c, app_test fakeled.c is used to test the led and sleep program
+
+
