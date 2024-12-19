@@ -28,4 +28,5 @@ Presence of Makefile, Cmake
 main.c, app_test fakeled.c is used to test the led and sleep program
 test_morse is used to test the morse programm
 
-![alt text](image.png)
+![image](https://github.com/user-attachments/assets/6d3bd503-3208-4444-be5e-435179785071)
+
