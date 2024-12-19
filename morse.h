@@ -1,17 +1,15 @@
 #ifndef MORSE_H
-#define MORSE_H
+#define MORSE_Hs
 
+// Déclaration de l'énumération
 typedef enum {
-    MORSE_DOT,    // short signal
-    MORSE_DASH,   // long signal
-    MORSE_WSEP,   // letter separator
-    MORSE_LSEP    // words separator
+    MORSE_DOT,
+    MORSE_DASH,
+    MORSE_WSEP
 } morse_event_t;
 
-//   Morse callback
+// Prototypes
 typedef void (*morse_callback_t)(morse_event_t event);
-
-// Conversion ASCII → Morse
 void ascii_to_morse(const char* text, morse_callback_t callback);
 
 #endif // MORSE_H
