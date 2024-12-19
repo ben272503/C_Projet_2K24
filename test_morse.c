@@ -2,7 +2,7 @@
 #include <string.h>
 #include "morse.h"
 
-// Callback pour gérer les événements Morse
+// Callback to handle Morse events
 void morse_event_handler(morse_event_t event) {
     switch (event) {
         case MORSE_DOT:
@@ -12,7 +12,7 @@ void morse_event_handler(morse_event_t event) {
             printf("-");
             break;
         case MORSE_WSEP:
-            printf(" ");  // Séparation entre lettres ou mots
+            printf(" ");  // Separation between letters or words
             break;
         default:
             printf("?");
@@ -20,32 +20,32 @@ void morse_event_handler(morse_event_t event) {
     }
 }
 
-// Fonction principale de test
+// Main test function
 void run_tests() {
-    printf("Test 1 : \"HELLO\"\n");
+    printf("Test 1: \"HELLO\"\n");
     ascii_to_morse("HELLO", morse_event_handler);
-    printf("\nAttendu : .... . .-.. .-.. ---\n");
+    printf("\nExpected: .... . .-.. .-.. ---\n");
 
-    printf("\nTest 2 : \"SOS\"\n");
+    printf("\nTest 2: \"SOS\"\n");
     ascii_to_morse("SOS", morse_event_handler);
-    printf("\nAttendu : ... --- ...\n");
+    printf("\nExpected: ... --- ...\n");
 
-    printf("\nTest 3 : \"123\"\n");
+    printf("\nTest 3: \"123\"\n");
     ascii_to_morse("123", morse_event_handler);
-    printf("\nAttendu : .---- ..--- ...--\n");
+    printf("\nExpected: .---- ..--- ...--\n");
 
-    printf("\nTest 4 : \"Hello, World!\"\n");
+    printf("\nTest 4: \"Hello, World!\"\n");
     ascii_to_morse("Hello, World!", morse_event_handler);
-    printf("\nAttendu : .... . .-.. .-.. ---   .-- --- .-. .-.. -.. (et avertissements pour ',' et '!')\n");
+    printf("\nExpected: .... . .-.. .-.. ---   .-- --- .-. .-.. -.. (and warnings for ',' and '!')\n");
 
-    printf("\nTest 5 : Caractères non pris en charge \"@#$%\"\n");
+    printf("\nTest 5: Unsupported characters \"@#$%\"\n");
     ascii_to_morse("@#$%", morse_event_handler);
-    printf("\nAttendu : Aucun code Morse (uniquement avertissements)\n");
+    printf("\nExpected: No Morse code (only warnings)\n");
 }
 
 int main() {
-    printf("Démarrage des tests pour morse.c\n");
+    printf("Starting tests for morse.c\n");
     run_tests();
-    printf("\nTests terminés.\n");
+    printf("\nTests completed.\n");
     return 0;
 }

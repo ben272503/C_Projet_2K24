@@ -1,18 +1,26 @@
-# Variables
-CC = gcc                 # Compilateur
-CFLAGS = -Wall -Wextra   # Options de compilation pour afficher les avertissements
-TARGET = test_morse      # Nom de l'exécutable
-SRC = test_morse.c morse.c sleep.c   # Fichiers source
-HEADERS = morse.h sleep.h const.h    # Fichiers d'en-tête
+# Name of the compiler
+CC = gcc
 
-# Règle par défaut (l'exécutable)
-$(TARGET): $(SRC) $(HEADERS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
+# General compilation options
+CFLAGS = -Wall -Wextra -I.
 
-# Règle pour nettoyer les fichiers générés
+# List of object files
+OBJS = led.o sleep.o
+
+# Name of the executable
+TARGET = app_test_fakeled
+
+# Default rule: compile the executable
+all: $(TARGET)
+
+# Generate the executable
+$(TARGET): app_test_fakeled.c $(OBJS)
+	$(CC) $(CFLAGS) -o $@ app_test_fakeled.c $(OBJS) -lpthread
+
+# Rule to compile object files
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Clean generated files
 clean:
-	rm -f $(TARGET)
-
-# Règle pour exécuter les tests
-run: $(TARGET)
-	./$(TARGET)
+	rm -f $(OBJS) $(TARGET)

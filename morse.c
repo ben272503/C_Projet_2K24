@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-// Dictionnaire Morse
+// Morse Dictionary
 static const char* morse_dict[128] = {
     ['A'] = ".-", ['B'] = "-...", ['C'] = "-.-.", ['D'] = "-..",
     ['E'] = ".", ['F'] = "..-.", ['G'] = "--.", ['H'] = "....",
@@ -30,9 +30,9 @@ void ascii_to_morse(const char* text, morse_callback_t callback) {
                     callback((morse_event_t)MORSE_DASH);
                 }
             }
-            callback((morse_event_t)MORSE_WSEP);  // Séparation entre lettres
+            callback((morse_event_t)MORSE_WSEP);  // Separation between letters
         } else {
-            fprintf(stderr, "Avertissement : caractère '%c' non supporté\n", text[i]);
+            fprintf(stderr, "Warning: unsupported character '%c'\n", text[i]);
         }
     }
 }

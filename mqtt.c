@@ -1,38 +1,26 @@
-#include "mqtt.h"
-#include "morse.h"
-#include "led.h"
-#include <mosquitto.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
+#include <MQTTClient.h>
+#include "mqtt.h"
 
-void morse_callback(morse_event_t event) {
-    switch (event) {
-        case MORSE_DOT: led_light_short(); break;
-        case MORSE_DASH: led_light_long(); break;
-        case MORSE_WSEP: led_pause_between_letters(); break;
-        case MORSE_LSEP: led_pause_between_words(); break;
-    }
+void on_message(MQTTClient_message* message, morse_callback_t callback) {
+    printf("MQTT Message received: %.*s\n", message->payloadlen, (char*)message->payload);
+    ascii_to_morse((char*)message->payload, callback);
+    MQTTClient_freeMessage(&message);
 }
 
-void on_message(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *msg) {
-    printf("Message reçu : %s\n", (char *)msg->payload);
-    ascii_to_morse((char *)msg->payload, morse_callback);
-}
+void mqtt_subscribe(const char* broker, const char* topic, morse_callback_t callback) {
+    MQTTClient client;
+    MQTTClient_connectOptions opts = MQTTClient_connectOptions_initializer;
 
-void mqtt_start(const char* broker, int port) {
-    struct mosquitto *mosq = NULL;
-    mosquitto_lib_init();
+    MQTTClient_create(&client, broker, "RPiMorseClient", MQTTCLIENT_PERSISTENCE_NONE, NULL);
+    MQTTClient_connect(client, &opts);
+    MQTTClient_subscribe(client, topic, 1);
 
-    mosq = mosquitto_new(NULL, true, NULL);
-    if (mosquitto_connect(mosq, broker, port, 60)) {
-        fprintf(stderr, "Connexion MQTT échouée !\n");
-        exit(1);
+    while (1) {
+        MQTTClient_message* msg;
+        MQTTClient_deliveryToken token;
+        MQTTClient_receive(client, &msg, &token, 1000);
+        if (msg) on_message(msg, callback);
     }
-
-    mosquitto_message_callback_set(mosq, on_message);
-    mosquitto_subscribe(mosq, NULL, "morse/messages", 0);
-    mosquitto_loop_forever(mosq, -1, 1);
-
-    mosquitto_destroy(mosq);
-    mosquitto_lib_cleanup();
 }

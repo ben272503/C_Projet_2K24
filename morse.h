@@ -1,7 +1,7 @@
 #ifndef MORSE_H
-#define MORSE_Hs
+#define MORSE_H
 
-// Déclaration de l'énumération
+// Declaration of the enumeration
 typedef enum {
     MORSE_DOT,
     MORSE_DASH,
